@@ -3,16 +3,16 @@ FROM		debian:buster
 LABEL		maintainer="rotrojan <rotrojan@student.42.fr>"
 
 RUN			apt-get update 			\
-			&& apt-get upgrade -y	\
-			&& apt-get install -y 	\
-				wget				\
-				nginx				\
+			&& apt-get upgrade -y		\
+			&& apt-get install -y 		\
+				wget			\
+				nginx			\
 				mariadb-server		\
-				php-fpm				\
-				php-mysql	
+				php-fpm			\
+				php-mysql
 
 ADD			./srcs/ /tmp
 
-EXPOSE		80
+EXPOSE		80 443
 
 CMD			["/bin/bash", "/tmp/run.bash"]

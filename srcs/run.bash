@@ -1,13 +1,14 @@
 #!/bin/bash
 
-# Init Nginx
+# Nginx configuration
 mv /tmp/nginx.conf /etc/nginx/sites-available/localhost
 ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
 unlink /etc/nginx/sites-enabled/default
 mkdir /var/www/html/localhost
-#chmod -R 755 /var/www/localhost
+chown -R www-data /var/www/html/localhost/
+chmod -R 755 /var/www/html/localhost/
 
-# Init MariaDB
+# MariaDB initialization
 service mysql start
 mysql < /tmp/create_database
 
@@ -16,27 +17,26 @@ mv /tmp/index.html /var/www/html/localhost/index.html
 mv /tmp/info.php /var/www/html/localhost/info.php
 
 # SSl
-openssl pkey -in privateKey.key -pubout -outform pem | sha256sum
-openssl x509 -in certificate.crt -pubkey -noout -outform pem | sha256sum
-openssl req -in CSR.csr -pubkey -noout -outform pem | sha256sum
+mkdir -p /etc/nginx/ssl/
+openssl req -x509 -out /etc/nginx/ssl/localhost.crt -keyout /etc/nginx/ssl/localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=rotrojan/CN=localhost"
 
-# Init phpmMyAdmin
+# Install phpmMyAdmin
 wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
 tar -xf phpMyAdmin-*all-languages.tar.gz
 rm -rf https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
-#mkdir /var/www/html/localhost/phpmyadmin
 mv phpMyAdmin-*all-languages /var/www/html/localhost/phpmyadmin
-#mkdir -p /var/lib/phpmyadmin/tmp
-#chown -R www-data:www-data /var/lib/phpmyadmin
 cp /var/www/html/localhost/phpmyadmin/config.sample.inc.php /var/www/html/localhost/phpmyadmin/config.inc.php
 
-#/var/www/localhost/phpmyadmin
-#mkdir /var/www/l/phpmyadmin
-#mkdir /usr/share/phpmyadmin
-#cp /usr/share/phpmyadmin/phpMyAdmin-*all-languages/config.sample.inc.php /var/www/localhost/phpmyadmin/config.inc.php
+# Install Wordpress
+wget https://wordpress.org/latest.tar.gz
+tar -xf latest.tar.gz
+rm -rf /latest.tar.gz
+mv /tmp/wp-config.php /wordpress/wp-config.php
+mv /wordpress /var/www/html/localhost/
 
-#rm phpMyAdmin-*all-languages.tar.gz
-
+# Launch server
 service php7.3-fpm start
 service nginx start
 tail -f /var/log/nginx/access.log /var/log/nginx/error.log

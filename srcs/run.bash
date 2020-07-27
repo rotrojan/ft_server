@@ -1,9 +1,19 @@
 #!/bin/bash
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    run.bash                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bigo </var/spool/mail/bigo>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/07/27 11:14:09 by bigo              #+#    #+#              #
+#    Updated: 2020/07/27 11:14:09 by bigo             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 # Nginx configuration
-mv /tmp/nginx.conf /etc/nginx/sites-available/localhost
+mv /tmp/default /etc/nginx/sites-available/localhost
 ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
-unlink /etc/nginx/sites-enabled/default
 mkdir /var/www/html/localhost
 chown -R www-data /var/www/html/localhost/
 chmod -R 755 /var/www/html/localhost/
@@ -18,16 +28,18 @@ mv /tmp/info.php /var/www/html/localhost/info.php
 
 # SSl
 mkdir -p /etc/nginx/ssl/
-openssl req -x509 -out /etc/nginx/ssl/localhost.crt -keyout /etc/nginx/ssl/localhost.key \
-  -newkey rsa:2048 -nodes -sha256 \
-  -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=rotrojan/CN=localhost"
+openssl req -x509 -out /etc/nginx/ssl/localhost.crt \
+	-keyout /etc/nginx/ssl/localhost.key -newkey rsa:2048 -nodes -sha256 \
+	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=rotrojan/CN=localhost"
 
 # Install phpmMyAdmin
 wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
 tar -xf phpMyAdmin-*all-languages.tar.gz
-rm -rf https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+rm -rf \
+	https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
 mv phpMyAdmin-*all-languages /var/www/html/localhost/phpmyadmin
-cp /var/www/html/localhost/phpmyadmin/config.sample.inc.php /var/www/html/localhost/phpmyadmin/config.inc.php
+cp /var/www/html/localhost/phpmyadmin/config.sample.inc.php \
+	/var/www/html/localhost/phpmyadmin/config.inc.php
 
 # Install Wordpress
 wget https://wordpress.org/latest.tar.gz

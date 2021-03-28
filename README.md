@@ -7,23 +7,23 @@ PHPMyadmin) running in one single Docker container.
 - SSL (certificates need to be manually approved) ; all sites works both with http and https.
 - Autoindex can be toggled on and off from within the container.
 
-To access autoindex :
-    http://localhost
-    https://localhost
+To access autoindex :  
+http://localhost  
+https://localhost
 
-To access WordPress site (on the first attempt to connect, you will have to create a new user and a site) :
-    http://localhost/wordpress
-    https://localhost/wordpress
+To access WordPress site (on the first attempt to connect, you will have to create a new user and a site) :  
+http://localhost/wordpress  
+https://localhost/wordpress
 
-To manage your WordPress :
-    http://localhost/wordpress/wp-admin
-    http://localhost/wordpress/wp-admin
-    http://localhost/wordpress/wp-login.php
-    https://localhost/wordpress/wp-login.php
+To manage your WordPress :  
+http://localhost/wordpress/wp-admin  
+https://localhost/wordpress/wp-admin  
+http://localhost/wordpress/wp-login.php  
+https://localhost/wordpress/wp-login.php
 
-To manage your data base (user : "example_user", password : "password") :
-    http://localhost/phpmyadmin
-    https://localhost/phpmyadmin
+To manage your data base (user : "example_user", password : "password") :  
+http://localhost/phpmyadmin  
+https://localhost/phpmyadmin
 
 Build Docker image from Dockerfile :
 ```

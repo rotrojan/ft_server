@@ -8,22 +8,22 @@ PHPMyadmin) running in one single Docker container.
 - Autoindex can be toggled on and off from within the container.
 
 To access autoindex :  
-http://localhost  
-https://localhost
+http://localhost:8080  
+https://localhost:8443
 
 To access WordPress site (on the first attempt to connect, you will have to create a new user and a site) :  
-http://localhost/wordpress  
-https://localhost/wordpress
+http://localhost:8080/wordpress  
+https://localhost:8443/wordpress
 
 To manage your WordPress :  
-http://localhost/wordpress/wp-admin  
-https://localhost/wordpress/wp-admin  
-http://localhost/wordpress/wp-login.php  
-https://localhost/wordpress/wp-login.php
+http://localhost:8080/wordpress/wp-admin  
+https://localhost:8443/wordpress/wp-admin  
+http://localhost/wordpress:8080/wp-login.php  
+https://localhost/wordpress:8443/wp-login.php
 
 To manage your data base (user : "example_user", password : "password") :  
-http://localhost/phpmyadmin  
-https://localhost/phpmyadmin
+http://localhost:8080/phpmyadmin  
+https://localhost:8443/phpmyadmin
 
 Build Docker image from Dockerfile :
 ```
@@ -31,7 +31,7 @@ docker build -t ft_server .
 ```
 Run the docker image (http and https ports of the container are mapped on the corresponding ports of the host machine) :
 ```
-docker run -p80:80 -p443:443 ft_server
+docker run -p8080:80 -p8443:443 ft_server
 ```
 List all running containers :
 ```

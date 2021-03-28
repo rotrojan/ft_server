@@ -39,7 +39,7 @@ docker ps
 ```
 Access a shell inside the container (if only one is running alone) :
 ```
-doker exec -it $(docker ps -q) /bin/sh
+docker exec -it $(docker ps -q) /bin/sh
 ```
 From this point, you can enable or disable the autoindex :
 ```

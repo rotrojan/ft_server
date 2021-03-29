@@ -11,7 +11,7 @@ Build Docker image from Dockerfile :
 ```
 docker build -t ft_server .
 ```
-Run the docker image (http and https ports of the container are mapped on the corresponding ports of the host machine) :
+Run the Docker image (http and https ports of the container are mapped on the corresponding ports of the host machine) :
 ```
 docker run -p8080:80 -p8443:443 ft_server
 ```

@@ -7,6 +7,14 @@ PHPMyadmin) running in one single Docker container.
 - SSL (certificates need to be manually approved) ; all sites works both with http and https.
 - Autoindex can be toggled on and off from within the container.
 
+Build Docker image from Dockerfile :
+```
+docker build -t ft_server .
+```
+Run the docker image (http and https ports of the container are mapped on the corresponding ports of the host machine) :
+```
+docker run -p8080:80 -p8443:443 ft_server
+```
 To access autoindex :  
 http://localhost:8080  
 https://localhost:8443
@@ -25,14 +33,6 @@ To manage your data base (user : "example_user", password : "password") :
 http://localhost:8080/phpmyadmin  
 https://localhost:8443/phpmyadmin
 
-Build Docker image from Dockerfile :
-```
-docker build -t ft_server .
-```
-Run the docker image (http and https ports of the container are mapped on the corresponding ports of the host machine) :
-```
-docker run -p8080:80 -p8443:443 ft_server
-```
 List all running containers :
 ```
 docker ps
